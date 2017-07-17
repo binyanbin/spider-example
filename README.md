@@ -1,6 +1,10 @@
 # Introduction
     爬虫程序，主要爬智联招聘，猎聘三个网站的长沙地区招聘数据。
-webcollect 爬虫爬虫程序, mysql做采集数据存储,ansj_seg中文分词。
+spring + webcollect + mysql(存储) + ansj_seg(中文分词).
 
+# Quick Start
 
+     1) 初始化数据库, 在你自己的MySQL中执行db.sql
+
+     2) 运行Application.java
 
