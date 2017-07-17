@@ -32,7 +32,7 @@ public class SpiderCSZhiLian extends BreadthCrawler {
      */
     @Autowired
     public SpiderCSZhiLian(JobService jobService) {
-        super("crawler", true);
+        super("zhilian", true);
         this.jobService = jobService;
 
         for (int i = 1; i <= 100; i++) {
