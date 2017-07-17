@@ -27,8 +27,10 @@ public class SpiderCSLiepin extends BreadthCrawler {
     public SpiderCSLiepin(JobService jobService) {
         super("liepin", true);
         this.jobService = jobService;
-        String str = "https://www.liepin.com/zhaopin/?industries=040%2C420%2C010%2C030&dqs=180020&key=";
-        this.addSeed(str);
+        for (int i = 0; i < 100; i++) {
+            String str = "https://www.liepin.com/zhaopin/?fromSearchBtn=2&ckid=38b8a1659cf51913&degradeFlag=0&industries=040%2C420%2C010%2C030&init=-1&dqs=180020&key=&headckid=38b8a1659cf51913&curPage=" + String.valueOf(i);
+            this.addSeed(str);
+        }
         this.addRegex("https://www.liepin.com/job/\\d*.shtml");
     }
 

@@ -46,25 +46,6 @@ public class SpiderCSZhiLian extends BreadthCrawler {
     public void visit(Page page, CrawlDatums next) {
         if (page.matchUrl("http://jobs.zhaopin.com/\\d*\\.htm")) {
             Job model = new Job();
-            Elements elementsTitle = page.select(".fixed-inner-box div h1");
-            if (isExists(elementsTitle)) {
-                jobService.analyzeWord(elementsTitle.text());
-                model.setTitle(elementsTitle.text());
-            }
-            Elements elementsName = page.select(".fixed-inner-box div h2 a");
-            if (isExists(elementsName)) {
-                model.setCompanyName(page.select(".fixed-inner-box div h2 a").text());
-            }
-            Elements advantageElements = page.select(".fixed-inner-box div.welfare-tab-box span");
-            StringBuilder advantage = new StringBuilder();
-            for (Element element : advantageElements) {
-                String key = element.text();
-                jobService.addCompanyKey(key);
-                advantage.append(key).append(",");
-            }
-            model.setAdvantage(advantage.toString());
-
-
             Elements elements = page.select("div ul.terminal-ul.clearfix li");
             for (Element element : elements) {
                 String[] elementArray = new String[2];
@@ -111,6 +92,28 @@ public class SpiderCSZhiLian extends BreadthCrawler {
                     model.setPublicDate(DateFormatUtils.format(publicDate, "yyyy-MM-dd"));
                 }
             }
+            if (!model.getCity().contains("长沙"))
+                return;
+
+            Elements elementsTitle = page.select(".fixed-inner-box div h1");
+            if (isExists(elementsTitle)) {
+                jobService.analyzeWord(elementsTitle.text());
+                model.setTitle(elementsTitle.text());
+            }
+            Elements elementsName = page.select(".fixed-inner-box div h2 a");
+            if (isExists(elementsName)) {
+                model.setCompanyName(page.select(".fixed-inner-box div h2 a").text());
+            }
+            Elements advantageElements = page.select(".fixed-inner-box div.welfare-tab-box span");
+            StringBuilder advantage = new StringBuilder();
+            for (Element element : advantageElements) {
+                String key = element.text();
+                jobService.addCompanyKey(key);
+                advantage.append(key).append(",");
+            }
+            model.setAdvantage(advantage.toString());
+
+
             Elements elements1 = page.select("div.tab-cont-box div.tab-inner-cont");
             if (isExists(elements1)) {
                 String content = elements1.first().text();
@@ -118,9 +121,7 @@ public class SpiderCSZhiLian extends BreadthCrawler {
                 model.setRequired(content);
             }
             model.setUrl(page.getUrl());
-            if (StringUtils.isNotBlank(model.getCity()) && model.getCity().contains("长沙")) {
-                jobService.addJob(model);
-            }
+            jobService.addJob(model);
         }
     }
 
