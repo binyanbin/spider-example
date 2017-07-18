@@ -1,5 +1,5 @@
 # Introduction
-    爬虫程序，主要爬智联招聘，猎聘三个网站的长沙地区招聘数据。
+    爬虫程序，主要爬智联招聘，猎聘二个网站的长沙地区招聘数据。
 spring + webcollect + mysql(存储) + ansj_seg(中文分词).
 
 # Quick Start
